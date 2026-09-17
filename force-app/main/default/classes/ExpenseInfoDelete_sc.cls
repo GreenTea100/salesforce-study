@@ -1,5 +1,6 @@
 global class ExpenseInfoDelete_sc implements Schedulable{
     global void execute(SchedulableContext sc) {
+        // 경비 내용 초기화 Batch를 50건 단위로 실행
         Database.executeBatch(new ExpenseInfoDelete_ba() , 50);
     }
 }

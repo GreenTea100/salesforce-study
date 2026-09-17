@@ -43,3 +43,20 @@ if(!contactList.isEmpty()) {
 }
 
 System.debug('Updateed contactList = ' + contactList);
+
+
+
+
+Set<Id> contactIdSet = new Set<Id>();
+
+for(Contact con : contactList){
+    contactIdSet.add(con.Id);
+}
+
+List<Contact> updatedContactList = [
+    Select Id, FirstName, LastName, Birthdate
+    From Contact
+    Where Id In :contactIdSet
+];
+
+System.debug('updatedContactList = ' + updatedContactList);

@@ -24,28 +24,28 @@ public with sharing class Account_tr extends TriggerHandler {
     }
     
     public override void afterUpdate(){
-        //doUpdateAccount();
+        doUpdateAccount();
     }
     
     public override void beforeDelete(){
-        
+        doDeleteAccount();
     }
     
     //Account 생성 시, Rating의 값을 'Cold'로 지정
     public void doInsertAccount() {
-        if(acc.Rating == null){
-            for(Account acc : listNew){
+        for(Account acc : listNew){
+            if(acc.Rating == null){
                 acc.Rating = 'Cold';
             }
         }
-        
     }
     
     
     //Trigger.newMap(mapNew)을 이용하여 addError() 발생
     public void doUpdateAccount() {
         for(Account acc : listNew){
-            if(mapOld.get(acc.Id).Rating == 'Hot' && acc.Rating == 'Cold'){
+            Account oldAcc = mapOld.get(acc.Id);
+            if(oldAcc.Rating == 'Hot' && acc.Rating == 'Cold'){
                 acc.addError('Rating을 Hot에서 Cold로 변경할 수 없습니다.');
             }
         }
@@ -53,6 +53,10 @@ public with sharing class Account_tr extends TriggerHandler {
     
     //Account 삭제 시, Rating 값이 'Hot'일 경우 삭제 불가
     public void doDeleteAccount() {
-        //Code Block
+        for(Account acc : listOld){
+            if(acc.Rating == 'Hot'){
+                acc.addError('Rating이 Hot인 Account는 삭제할 수 없습니다.');
+            }
+        }
     }
 }
