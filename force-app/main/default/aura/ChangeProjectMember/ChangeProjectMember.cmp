@@ -1,3 +1,60 @@
-<aura:component>
+<!-- implemets, controller 선언-->
+<aura:component
+    description="ChangeProjectMember"
+    controller="ChangeProjectMemberController"
+    implements="force:hasRecordId,force:lightningQuickActionWithoutHeader,flexipage:availableForAllPageTypes">
+
+
+    <!-- 초기화 시 프로젝트 멤버 조회-->
+    <aura:handler name="init" value="{!this}" action="{!c.fnInit}" />
+
+    <!-- 현재 프로젝트 멤버 목록-->
+    <aura:attribute name="ListMember" type="list" default="[]"/>
+
+    <!-- 교체 가능한 직원 목록-->
+    <aura:attribute name="ListEmployee" type="list" default="[]"/>
+
+    <!-- 선택한 프로젝트 멤버 Id-->
+    <aura:attribute name="ChangedMember" type="String" default="[]"/>
+
+    <!-- 선택한 직원 Id-->
+    <aura:attribute name="SelectedEmployee" type="String" default="" />
+
+    <!-- 직원 선택 영역 노출 여부-->
+    <aura:attribute name="ShowEmployeeOption" type="Boolean" default="false"/>
+
+    <!-- 변경할 프로젝트 멤버 선택함 -->
+    <lightning:combobox
+        name="projectMember"
+        label="프로젝트 멤버 선택"
+        value="{!v.ChangedMember}"
+        placeholder="선택"
+        options="{!v.ListMember}"
+        onchange="{!c.fnChangeMember}"
+    />
+
+    <!-- 교체할 직원 선택 영역-->
+    <aura:if isTrue="{!v.ShowEmployeeOption}">
+        <lightning:combobox 
+            name="employee"
+            label="직원 선택"
+            value="{!v.SelectedEmployee}"
+            placeholder="선택"
+            options="{!v.ListEmployee}"/>
+
+        <div class="slds-m-top_medium">
+            <lightning:button 
+                variant="brand"
+                label="교체"
+                onclick="{!c.fnChange}"/>
+
+            <lightning:button 
+                variant="neutral"
+                label="취소"
+                onclick="{!c.fnCancel}"
+                class="slds-m-left_small"/>
+        </div>
+    </aura:if>
+
 
 </aura:component>
