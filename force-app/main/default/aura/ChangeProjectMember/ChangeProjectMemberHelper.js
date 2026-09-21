@@ -100,12 +100,12 @@
 
         // 프로젝트 멤버와 직원 Id 전달
         action.setParams({
-            projectMemberId : component.get("v.ChangeMember"),
-            employeeId : component.get("v.Selectemployee")
+            projectMemberId : component.get("v.ChangedMember"),
+            employeeId : component.get("v.SelectedEployee")
         });
 
         action.setCallback(this, function(response){
-            var state = response.setState();
+            var state = response.getState();
 
             if(state == "SUCCESS"){
                 // 교체 성공 토스트

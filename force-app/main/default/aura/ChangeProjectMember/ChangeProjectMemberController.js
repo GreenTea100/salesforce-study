@@ -55,6 +55,14 @@
     },
 
     fnChange : function(component, event, helper){
+        
+        // 프로젝트 멤버 교체 확인
+        var result = confirm("프로젝트 멤버를 교체하시겠습니까?");
+
+        // 실제 교체 요청
+        if(result) {
+            helper.doChangedMember(component);
+        }
 
     },
 

@@ -1,0 +1,146 @@
+<aura:component
+    description="ContactSearch"
+    controller="ContactSearchController"
+    implements="force:appHostable,flexipage:availableForAllPageTypes"
+    access="global">
+
+    <!-- 성 검색 조건-->
+    <aura:attribute
+        name="SearchLastName"
+        type="String"
+        default=""
+    />
+
+    <!-- 거래처명 검색 조건-->
+    <aura:attribute
+        name="SearchAccountName"
+        type="String"
+        default=""
+    />
+
+    <!-- 이메일 검색 조건-->
+    <aura:attribute
+        name="SearchEmail"
+        type="String"
+        default=""
+    />
+    
+    <!-- Contact 검색 결과-->
+    <aura:attribute
+        name="ListContact"
+        type="List"
+        default="[]"
+    />
+
+    <!-- Contact 검색 결과 총 건수-->
+    <aura:attribute
+        name="TotalCount"
+        type="Integer"
+        default="0"
+    />
+    
+    <!-- 검색 결과 영역 여부-->
+    <aura:attribute
+        name="ShowResult"
+        type="Boolean"
+        default="false"
+    />
+
+    <!-- Datatable 컬럼 정보-->
+    <aura:attribute
+        name="Columns"
+        type="List"
+        default="[]"
+    />
+
+    <!-- 컴포넌트 초기화-->
+    <aura:handler
+        name="init"
+        value="{!this}"
+        action="{!c.fnInit}"
+    />
+
+    <!-- Contact 검색 전체 영역 -->
+    <div class="slds-box slds-p-around_none">
+
+        <!-- 검색 조건 영역 -->
+        <div class="slds-p-around_small">
+
+        <lightning:layout
+            horizontalAlign="spread"
+            verticalAlign="end">
+
+            <!-- Last Name -->
+            <lightning:layoutItem
+                size="3"
+                padding="around-small">
+
+                <lightning:input
+                    type="text"
+                    label="Last Name"
+                    value="{!v.SearchLastName}" />
+
+            </lightning:layoutItem>
+
+            <!-- Account Name -->
+            <lightning:layoutItem
+                size="3"
+                padding="around-small">
+
+                <lightning:input
+                    type="text"
+                    label="Account Name"
+                    value="{!v.SearchAccountName}" />
+
+            </lightning:layoutItem>
+
+            <!-- Email -->
+            <lightning:layoutItem
+                size="3"
+                padding="around-small">
+
+                <lightning:input
+                    type="email"
+                    label="Email"
+                    value="{!v.SearchEmail}" />
+
+            </lightning:layoutItem>
+
+            <!-- 조회 버튼 -->
+            <lightning:layoutItem
+                size="3"
+                padding="around-small">
+
+                <lightning:button
+                    variant="neutral"
+                    label="조회"
+                    iconName="utility:search"
+                    iconPosition="left"
+                    onclick="{!c.fnSearch}" />
+
+            </lightning:layoutItem>
+
+        </lightning:layout>
+        </div>
+
+            <!-- 검색 결과가 있는 경우-->
+            <aura:if isTrue="{!v.ShowResult}">
+                
+                <!-- 검색 결과 총 건수-->
+                <div class="slds-p-horizontal_small slds-p-bottom_x-small">
+                    * 총 {!v.TotalCount} 건
+                </div>
+
+                <lightning:datatable
+                    keyField="Id"
+                    data="{!v.ListContact}"
+                    columns="{!v.Columns}"
+                    hideCheckboxColumn="true"
+                    showRowNumberColumn="true"
+                    onrowaction="{!c.fnRowAction}"
+                />
+
+            </aura:if>
+        </div>
+
+</aura:component>
