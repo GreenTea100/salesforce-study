@@ -5,7 +5,7 @@ public with sharing class ChangeProjectMemberController {
 
         // 현재 프로젝트에 등록된 프로젝트 멤버 조회
         List<ProjectMember__c> listProjectMember = [
-            SELECT Id, Name, Position__c, Employee__c, Employee__r.Name
+            SELECT Id, Name, Position__c, Employee__c, Employee__r.EmployeeName__c
             FROM ProjectMember__c
             WHERE Project__c = :recordId
             ORDER BY Name
@@ -36,10 +36,10 @@ public with sharing class ChangeProjectMemberController {
 
         // 진행 중 프로젝트에 투입되지 않은 직원
         List<Employee__c> listEmployee = [
-            SELECT Id, Name
+            SELECT Id, Name, EmployeeName__c
             FROM Employee__c
             WHERE Id NOT IN :setAssigendEmployeeId
-            ORDER BY Name
+            ORDER BY EmployeeName__c
         ];
 
         return listEmployee;
@@ -47,7 +47,7 @@ public with sharing class ChangeProjectMemberController {
 
 
     @AuraEnabled
-    public static void ChangeProjectMember(
+    public static void changeProjectMember(
         String projectMemberId,
         String employeeId
     ){

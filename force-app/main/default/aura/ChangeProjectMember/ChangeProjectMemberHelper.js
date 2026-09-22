@@ -24,7 +24,7 @@
 
                 listProjectMember.forEach(function(objProjectMember){
                     listMemberOption.push({
-                        label : objProjectMember.Employee__r.Name,
+                        label : objProjectMember.Employee__r.EmployeeName__c,
                         value : objProjectMember.Id,
                         position : objProjectMember.Position__c
                     });
@@ -35,7 +35,11 @@
 
 
             } else if (state == "ERROR"){
-                console.log(response.getError());
+                // 조회 실패 토스트
+                this.showToast(
+                    "error",
+                    "프로젝트 멤버 목록을 조회하지 못했습니다."
+                );
             }
         });
 
@@ -60,7 +64,7 @@
 
                 listEmployee.forEach(function(objEmployee){
                     listEmployeeOption.push({
-                        label: objEmployee.Name,
+                        label: objEmployee.EmployeeName__c,
                         value: objEmployee.Id
                     });
                 });
@@ -95,13 +99,14 @@
     },
 
     doChangeMember : function(component) {
+
         // 프로젝트 멤버 교체 메서드 가져옴
         var action = component.get("c.changeProjectMember");
 
         // 프로젝트 멤버와 직원 Id 전달
         action.setParams({
             projectMemberId : component.get("v.ChangedMember"),
-            employeeId : component.get("v.SelectedEployee")
+            employeeId : component.get("v.SelectedEmployee")
         });
 
         action.setCallback(this, function(response){
@@ -117,7 +122,11 @@
                 // 창 닫기
                 $A.get("e.force:closeQuickAction").fire();
 
+                // 화면 새로고침
+                $A.get("e.force:refreshView").fire();
+
             } else if(state == "ERROR"){
+                
                 // 교체 실패 토스트
                 this.showToast(
                     "error",

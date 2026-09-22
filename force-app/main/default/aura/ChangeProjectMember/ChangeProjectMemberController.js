@@ -57,11 +57,11 @@
     fnChange : function(component, event, helper){
         
         // 프로젝트 멤버 교체 확인
-        var result = confirm("프로젝트 멤버를 교체하시겠습니까?");
+        var result = confirm("정말로 프로젝트 멤버를 교체하시겠습니까?");
 
         // 실제 교체 요청
         if(result) {
-            helper.doChangedMember(component);
+            helper.doChangeMember(component);
         }
 
     },
@@ -70,5 +70,14 @@
 
         // 창 닫기
         $A.get("e.force:closeQuickAction").fire();
+    },
+
+    fnChangeEmployee : function(component, event, helper){
+        
+        // 선택한 직원 Id
+        var strEmployeeId = event.getParam("value");
+
+        // 선택한 직원 Id 저장
+        component.set("v.SelectedEmployee", strEmployeeId);
     }
 })

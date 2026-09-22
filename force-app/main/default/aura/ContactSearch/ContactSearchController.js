@@ -15,7 +15,7 @@
             },
             {
                 label: "Last Name",
-                fieldName: "Last Name",
+                fieldName: "LastName",
                 type: "text"
             },
             {
