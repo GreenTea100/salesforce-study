@@ -1,0 +1,57 @@
+<aura:component
+    controller="AddressSearchMainController"
+    implements="force:hasRecordId,flexipage:availableForRecordHome"
+    access="global">
+
+    <!-- 현재 Contact 주소 정보-->
+    <aura:attribute name="objContact" type="Object" default="{}"/>
+
+    <!-- 주소 검색 모달 노출 여부-->
+    <aura:attribute name="ShowAddressSearch" type="Boolean" default="false" />
+
+    <!-- 최초 실행 주소 조회-->
+    <aura:handler name="init" value="{!this}" action="{!c.fnInit}" />
+
+    <lightning:card title="주소 검색">
+        <aura:set attribute="actions">
+            <lightning:buttonGroup>
+
+                <lightning:button
+                    label="주소 초기화"
+                    onclick="{!c.fnResetAddress}"/>
+                    
+                <lightning:button
+                    label="주소 등록"
+                    onclick="{!c.fnOpenAddressSearch}"/>
+
+            </lightning:buttonGroup>
+        </aura:set>
+
+        <div class="slds-p-horizontal_medium slds-p-bottom_medium">
+            <div class="slds-p-vertical_x-small slds-border_bottom">
+                <span class="slds-text-title">우편번호</span>
+                <div>{!v.objContact.PostalCode__c}</div>
+            </div>
+
+            <div class="slds-p-vertical_x-small slds-border_bottom">
+                <span class="slds-text-title">도로명 주소</span>
+                <div>{!v.objContact.RoadAddress__c}</div>
+            </div>
+
+            <div class="slds-p-vertical_x-small slds-border_bottom">
+                <span class="slds-text-title">상세주소</span>
+                <div>{!v.objContact.DetailAddress__c}</div>
+            </div>
+        </div>
+
+    </lightning:card>
+
+    <!-- 주소 검색 모달 호출-->
+    <aura:if isTrue="{!v.ShowAddressSearch}">
+        <c:AddressSearch 
+            headerName="도로명 주소 찾기"
+            recordId="{!v.recordId}"
+            showModal="{!v.ShowAddressSearch}"/>
+    </aura:if>
+
+</aura:component>
