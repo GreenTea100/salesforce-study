@@ -5,7 +5,7 @@
         var action = component.get("c.getContactAddress");
 
         action.setParams({
-            recordId : component.get("v.record")
+            recordId : component.get("v.recordId")
         });
 
         action.setCallback(this, function(response){

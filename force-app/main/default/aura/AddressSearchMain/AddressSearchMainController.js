@@ -12,5 +12,12 @@
     fnOpenAddressSearch : function(component, event, helper){
         // 모달 노출
         component.set("v.ShowAddressSearch", true);
+    },
+    
+    fnAddressSearchChange: function (component, event, helper) {
+        // 모달 닫히면 다시 조회함
+        if (!component.get("v.ShowAddressSearch")) {
+            helper.getContactAddress(component);
+        }
     }
 })

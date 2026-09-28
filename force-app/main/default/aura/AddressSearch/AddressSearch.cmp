@@ -19,9 +19,30 @@
 
     <!-- 선택한 우편번호 저장 -->
     <aura:attribute name="SelectedZipNo" type="String" default="" />
-    
+
     <!-- 선택한 도로명주소 저장 -->
     <aura:attribute name="SelectedRoadAddr" type="String" default="" />
+
+    <!-- 상세주소 저장 -->
+    <aura:attribute name="DetailAddress" type="String" default="" />
+
+    <!-- 저장 중 Spinner -->
+    <aura:attribute name="ShowSpinner" type="Boolean" default="false" />
+
+    <!-- 주소 검색 총 건수-->
+    <aura:attribute name="TotalCount" type="Integer" default="0" />
+
+    <!-- 주소 검색 실행 여부 저장함 -->
+    <aura:attribute name="ShowSearchResult" type="Boolean" default="false" />
+
+    <!-- 현재 검색 페이지 저장함 -->
+    <aura:attribute name="CurrentPage" type="Integer" default="1" />
+
+    <!-- 전체 페이지 수 저장함 -->
+    <aura:attribute name="TotalPages" type="Integer" default="1" />
+
+    <!-- 페이지당 주소 개수 저장함 -->
+    <aura:attribute name="CountPerPage" type="Integer" default="10" />
 
 
 
@@ -41,32 +62,109 @@
             </header>
 
             <!-- 주소 검색 내용-->
-            <div class="slds-modal__content slds-p-around_medium">
+            <div class="slds-modal__content slds-p-around_medium address-search-body">
+
+                <aura:if isTrue="{!v.ShowSpinner}">
+                    <div class="address-search-spinner-overlay">
+                        <div role="status" class="slds-spinner slds-spinner_small slds-spinner_brand">
+                            <span class="slds-assistive-text">Loading</span>
+
+                            <div class="slds-spinner__dot-a"></div>
+                            <div class="slds-spinner__dot-b"></div>
+                        </div>
+                    </div>
+                </aura:if>
 
                 <aura:if isTrue="{!not(v.ShowAddressDetail)}">
 
                     <!-- 엔터 감지-->
                     <div onkeydown="{!c.fnKeyDown}">
 
-                        <!-- 도로명 주소 검색어 입력받음-->
+                        <!-- 도로명 주소 검색어-->
                         <lightning:input type="text" label="주소 검색" placeholder="도로명 주소를 입력해주세요"
                             value="{!v.SearchKeyword}" />
                     </div>
 
-                    <!-- 검색된 주소 목록 노출-->
-                    <aura:iteration items="{!v.ListAddress}" var="objAddress" indexVar="index">
-
-                        <div class="slds-p-vertical_small slds-border_bottom">
-                            <lightning:button variant="base" label="{!objAddress.roadAddr}" value="{!index}"
-                                onclick="{!c.fnSelectAddress}" />
+                    <aura:if isTrue="{!v.ShowSearchResult}">
+                        <!-- 총 건수-->
+                        <div class="slds-m-top_medium slds-m-bottom_x-small">
+                            <span class="slds-text-title_bold">도로명주소 검색 결과 ({!v.TotalCount})</span>
                         </div>
 
-                    </aura:iteration>
+                        <!-- 검색된 주소 목록 노출-->
+                        <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                            <thead>
+                                <tr class="slds-line-height_reset">
+                                    <th scope="col" style="width: 70px;">
+                                        <div class="slds-truncate" title="No.">No.</div>
+                                    </th>
+
+                                    <th scope="col">
+                                        <div class="slds-truncate" title="도로명주소">
+                                            도로명주소
+                                        </div>
+                                    </th>
+
+                                    <th scope="col" style="width: 100px;">
+                                        <div class="slds-truncate" title="우편번호">
+                                            우편번호
+                                        </div>
+                                    </th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <aura:iteration items="{!v.ListAddress}" var="objAddress" indexVar="index">
+
+                                    <tr>
+                                        <!-- 번호 -->
+                                        <td>
+                                            {!((v.CurrentPage - 1) * v.CountPerPage) + index + 1}
+                                        </td>
+
+                                        <!-- 도로명주소 / 지번주소 -->
+                                        <td>
+                                            <lightning:button variant="base" label="{!objAddress.roadAddr}"
+                                                value="{!index}" onclick="{!c.fnSelectAddress}" />
+
+                                            <div class="slds-text-body_small slds-text-color_weak">
+                                                [지번] {!objAddress.jibunAddr}
+                                            </div>
+                                        </td>
+
+                                        <!-- 우편번호 -->
+                                        <td>
+                                            {!objAddress.zipNo}
+                                        </td>
+                                    </tr>
+
+                                </aura:iteration>
+                            </tbody>
+                        </table>
+
+                        <!-- 검색 결과 페이지 영역 -->
+                        <div class="slds-grid slds-grid_align-center slds-grid_vertical-align-center slds-m-top_medium">
+
+                            <lightning:button variant="neutral" label="이전" onclick="{!c.fnPreviousPage}"
+                                disabled="{!v.CurrentPage == 1}" />
+
+                            <span class="slds-m-horizontal_medium">
+                                {!v.CurrentPage} / {!v.TotalPages}
+                            </span>
+
+                            <lightning:button variant="neutral" label="다음" onclick="{!c.fnNextPage}"
+                                disabled="{!v.CurrentPage == v.TotalPages}" />
+
+                        </div>
+                    </aura:if>
 
                     <aura:set attribute="else">
-                        <!-- 선택한 주소 노출-->
-                        <p>우편번호: {!v.SelectAddress.zipNo}</p>
-                        <p>도로명 주소: {!v.SelectAddress.roadAddr}</p>
+                        <!-- 선택한 주소-->
+                        <lightning:input type="text" label="우편번호" value="{!v.SelectedZipNo}" disabled="true" />
+                        <lightning:input type="text" label="도로명 주소" value="{!v.SelectedRoadAddr}" disabled="true" />
+
+                        <!-- 상세주소 입력 칸-->
+                        <lightning:input type="text" label="상세주소" value="{!v.DetailAddress}" />
                     </aura:set>
 
                 </aura:if>
@@ -74,7 +172,21 @@
 
             <!-- 모달 하단-->
             <footer class="slds-modal__footer">
-                <lightning:button variant="neutral" label="취소" onclick="{!c.fnClose}" />
+                <div class="slds-grid slds-grid_align-spread">
+
+                    <!-- 취소 버튼-->
+                    <div>
+                        <lightning:button variant="neutral" label="취소" onclick="{!c.fnClose}" />
+                    </div>
+
+                    <!-- 이전 / 저장 버튼-->
+                    <aura:if isTrue="{!v.ShowAddressDetail}">
+                        <div>
+                            <lightning:button variant="neutral" label="이전" onclick="{!c.fnPrevious}" />
+                            <lightning:button variant="brand" label="저장" onclick="{!c.fnSaveAddress}" />
+                        </div>
+                    </aura:if>
+                </div>
             </footer>
         </div>
 

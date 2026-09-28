@@ -1,7 +1,11 @@
 public with sharing class AddressSearchController {
     
     @AuraEnabled
-    public static Map<String, Object> searchAddress(String keyword){
+    public static Map<String, Object> searchAddress(
+        String keyword,
+        Integer currentPage,
+        Integer countPerPage
+    ){
 
         // 저장된 API 설정값
         JusoApiSetting__c objSetting = JusoApiSetting__c.getOrgDefaults();
@@ -14,8 +18,8 @@ public with sharing class AddressSearchController {
 
         // 기본 URL 설정
         String apiURL = 'https://business.juso.go.kr/addrlink/addrLinkApi.do'
-                        + '?currentPage=1'
-                        + '&countPerPage=10'
+                        + '?currentPage=' + currentPage
+                        + '&countPerPage=' + countPerPage
                         + '&keyword=' + encodedKeyword
                         + '&confmKey=' + EncodingUtil.urlEncode(confmKey, 'UTF-8')
                         + '&resultType=json';
@@ -42,5 +46,24 @@ public with sharing class AddressSearchController {
         HttpResponse response = http.send(request);
 
         return response.getBody();
+    }
+
+
+    @AuraEnabled
+    public static void saveAddress(
+        String recordId,
+        String postalCode,
+        String roadAddress,
+        String detailAddress
+    ){
+        // Contact 주소 값 저장
+        Contact objContact = new Contact(
+            Id = RecordId,
+            PostalCode__c = postalCode,
+            RoadAddress__c = roadAddress,
+            DetailAddress__c = detailAddress
+        );    
+
+        update objContact;
     }
 }

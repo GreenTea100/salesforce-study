@@ -12,17 +12,20 @@
     <!-- 최초 실행 주소 조회-->
     <aura:handler name="init" value="{!this}" action="{!c.fnInit}" />
 
+    <!-- 모달 상태 변경 감지-->
+    <aura:handler name="change" value="{!v.ShowAddressSearch}" action="{!c.fnAddressSearchChange}" />
+
     <lightning:card title="주소 검색">
         <aura:set attribute="actions">
             <lightning:buttonGroup>
 
                 <lightning:button
+                    label="주소 등록"
+                    onclick="{!c.fnOpenAddressSearch}" />
+
+                <lightning:button
                     label="주소 초기화"
                     onclick="{!c.fnResetAddress}"/>
-                    
-                <lightning:button
-                    label="주소 등록"
-                    onclick="{!c.fnOpenAddressSearch}"/>
 
             </lightning:buttonGroup>
         </aura:set>
@@ -39,8 +42,12 @@
             </div>
 
             <div class="slds-p-vertical_x-small slds-border_bottom">
-                <span class="slds-text-title">상세주소</span>
-                <div>{!v.objContact.DetailAddress__c}</div>
+                <div class="slds-grid slds-grid_align-spread slds-grid_vertical-align-center">
+                    <div>
+                        <span class="slds-text-title">상세주소</span>
+                        <div>{!v.objContact.DetailAddress__c}</div>
+                    </div>
+                </div>
             </div>
         </div>
 
