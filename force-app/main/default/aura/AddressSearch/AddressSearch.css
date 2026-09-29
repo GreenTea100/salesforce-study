@@ -1,12 +1,48 @@
-.THIS .address-search-body {
+.THIS .address-search-modal-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.THIS .address-search-body-wrapper {
     position: relative;
+
+    display: flex;
+    flex-direction: column;
+
+    flex: 0 1 auto;
+    min-height: 0;
+
+    overflow: hidden;
+}
+
+.THIS .address-search-body {
+    min-height: 0;
+    overflow-y: auto;
 }
 
 .THIS .address-search-spinner-overlay {
     position: absolute;
+
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(1px);
+
     z-index: 10;
+}
+
+.THIS .address-search-spinner-overlay .slds-spinner {
+    position: relative;
+
+    top: auto;
+    left: auto;
+
+    transform: none;
 }
