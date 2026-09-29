@@ -14,7 +14,7 @@ public with sharing class PrintOrderProductController {
         
         //해당 Order의 OrderItem을 가져오는 쿼리 작성해보기
         listOrderItem = [
-            SELECT Id, OrderId, Product2Id, Product2.Name, Quantity, UnitPrice
+            SELECT Id, OrderId, OrderItemNumber, Product2Id, Product2.Name, Quantity, UnitPrice
             FROM OrderItem
             WHERE OrderId = :recordId
         ];

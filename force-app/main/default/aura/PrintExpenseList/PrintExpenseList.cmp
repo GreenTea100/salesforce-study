@@ -5,7 +5,7 @@
  * ===================================================================================
     1.0                     yr.lee          Create
 *************************************************************************************-->
-<aura:component description="PrintOrderProduct"
+<aura:component description="PrintExpenseList"
                 implements="force:hasRecordId,force:lightningQuickActionWithoutHeader,flexipage:availableForAllPageTypes">
 
     <aura:attribute name="vfPageUrl" type="String"/>
@@ -36,7 +36,7 @@
     </aura:html>
 
     <div class="slds-col modal-header slds-modal__header">
-        Order Product
+        프로젝트 경비 내역
     </div>
     <!-- (Style) divContent : 전체 Modal 크기 조절 -->
     <div class="slds-col modal-body divContent scrollable" style="position:relative;min-height:80vh;width:100%">
