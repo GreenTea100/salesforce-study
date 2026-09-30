@@ -9,8 +9,7 @@
     },
 
     fnSave : function(component, event, helper){
-        console.log("call Save");
         //저장버튼 누를 시, 액션
-        //helper.saveAction(component);
+        helper.saveAction(component);
     }
 });

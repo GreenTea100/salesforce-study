@@ -7,31 +7,6 @@
                 size: A4;
                 margin: 20mm;
             }
-
-            body {
-                font-family: 'Arial Unicode MS';
-            }
-
-            .title {
-                text-align: center;
-                font-size: 26px;
-                margin-bottom: 30px;
-            }
-
-            table {
-                width: 100%;
-                border-collapse: collapse;
-            }
-
-            th, td {
-                border: 1px solid black;
-                padding: 8px;
-                font-size: 10pt;
-            }
-
-            th {
-                text-align: center;
-            }
         </style>
     </head>
 
@@ -52,7 +27,7 @@
                     프로젝트 경비 내역
                 </div>
 
-                <table style="width:100%;border-collapse:collapse;border:1px solid black;">
+                <table style="width:100%;border-collapse:collapse;border:1px solid black;font-family:'Arial Unicode MS';">
                     <tr>
                         <th style="border:1px solid black;padding:8px;">순번</th>
                         <th style="border:1px solid black;padding:8px;">경비 번호</th>
