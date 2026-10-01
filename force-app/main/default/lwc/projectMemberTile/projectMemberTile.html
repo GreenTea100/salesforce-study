@@ -1,0 +1,10 @@
+<template>
+    <div class={tileSelected} onclick={employeeClick}>
+        <div class="innerTile">
+            <img src={employee.PhotoUrl} class="innerTile" />
+            <div class="lower-third">
+                <h1>{employee.EmployeeName__c} / {employee.JobLevel__c}</h1>
+            </div>
+        </div>
+    </div>
+</template>

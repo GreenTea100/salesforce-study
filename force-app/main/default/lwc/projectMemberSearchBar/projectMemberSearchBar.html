@@ -1,0 +1,29 @@
+<!--************************************************************************************
+ * Description :
+ *
+ * Ver      Date           Author          Modification
+ * ===================================================================================
+   1.0      2024-10-29     yr.lee          Create
+*************************************************************************************-->
+
+<!-- Project Member Search Bar -->
+<template>
+    <lightning-card title="프로젝트 선택" icon-name="utility:search">
+        <lightning-layout horizontal-align="center">
+            <lightning-layout-item padding="around-small" size="4">
+                <!-- Industry Type drop-down -->
+                <lightning-combobox name="industrySelector" label="산업분류 선택" variant="label-hidden"
+                    options={listIndustryTypes} value={selectedIndustryType} placeholder="원하는 산업을 골라주세요."
+                    onchange={onIndustryChange}>
+                </lightning-combobox>
+            </lightning-layout-item>
+            <lightning-layout-item padding="around-small" size="4">
+                <!-- Project drop-down -->
+                <lightning-combobox name="projectSelector" label="프로젝트 선택" variant="label-hidden"
+                    value={selectedProjectId} placeholder="원하는 프로젝트를 골라주세요." options={listProjects}
+                    onchange={onProjectChange}>
+                </lightning-combobox>
+            </lightning-layout-item>
+        </lightning-layout>
+    </lightning-card>
+</template>

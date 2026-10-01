@@ -1,0 +1,8 @@
+<template>
+    <c-project-member-search-bar onfilterchange={handleFilterChange}></c-project-member-search-bar>
+    <lightning-tabset variant="scoped">
+        <lightning-tab label="Available Employees">
+            <c-project-member-tiles list-employee={employees.data}></c-project-member-tiles>
+        </lightning-tab>
+    </lightning-tabset>
+</template>
