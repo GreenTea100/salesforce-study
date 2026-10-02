@@ -3,34 +3,34 @@ public with sharing class Account_tr extends TriggerHandler {
     private List<Account> listOld {get; set;}
     private Map<Id, Account> mapNew {get; set;}
     private Map<Id, Account> mapOld {get; set;}
-    
+
     public Account_tr(){
         listNew = (List<Account>)Trigger.new;
         listOld = (List<Account>)Trigger.old;
         mapNew = (Map<Id,Account>)Trigger.newMap;
         mapOld = (Map<Id,Account>)Trigger.oldMap;
     }
-    
+
     public override void beforeInsert(){
         doInsertAccount();
     }
-    
+
     public override void afterInsert(){
-        
+
     }
-    
+
     public override void beforeUpdate(){
         doUpdateAccount();
     }
-    
+
     public override void afterUpdate(){
-        doUpdateAccount();
+
     }
-    
+
     public override void beforeDelete(){
         doDeleteAccount();
     }
-    
+
     //Account 생성 시, Rating의 값을 'Cold'로 지정
     public void doInsertAccount() {
         for(Account acc : listNew){
@@ -39,9 +39,9 @@ public with sharing class Account_tr extends TriggerHandler {
             }
         }
     }
-    
-    
-    //Trigger.newMap(mapNew)을 이용하여 addError() 발생
+
+
+    // Rating 값 비교
     public void doUpdateAccount() {
         for(Account acc : listNew){
             Account oldAcc = mapOld.get(acc.Id);
@@ -50,8 +50,8 @@ public with sharing class Account_tr extends TriggerHandler {
             }
         }
     }
-    
-    //Account 삭제 시, Rating 값이 'Hot'일 경우 삭제 불가
+
+    // Account 삭제 시, Rating 값이 'Hot'일 경우 삭제 불가
     public void doDeleteAccount() {
         for(Account acc : listOld){
             if(acc.Rating == 'Hot'){

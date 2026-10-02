@@ -1,5 +1,5 @@
 public with sharing class AddressSearchController {
-    
+
     @AuraEnabled
     public static Map<String, Object> searchAddress(
         String keyword,
@@ -13,7 +13,7 @@ public with sharing class AddressSearchController {
         // API 승인키
         String confmKey = objSetting.ConfirmationKey__c;
 
-        // UTF-8 인코딩 
+        // UTF-8 인코딩
         String encodedKeyword =  EncodingUtil.urlEncode(keyword, 'UTF-8');
 
         // 기본 URL 설정
@@ -40,7 +40,7 @@ public with sharing class AddressSearchController {
         HttpRequest request = new HttpRequest();
 
         request.setMethod('GET');
-        request.setTimeout(110000);
+        request.setTimeout(100000);
         request.setEndpoint(apiURL);
 
         HttpResponse response = http.send(request);
@@ -62,7 +62,7 @@ public with sharing class AddressSearchController {
             PostalCode__c = postalCode,
             RoadAddress__c = roadAddress,
             DetailAddress__c = detailAddress
-        );    
+        );
 
         update objContact;
     }

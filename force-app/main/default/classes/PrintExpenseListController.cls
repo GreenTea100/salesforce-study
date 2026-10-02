@@ -31,9 +31,7 @@ public with sharing class PrintExpenseListController {
         }
 
         // 마지막 페이지 목록 추가
-        if(!listPage.isEmpty()){
-            listExpensePage.add(listPage);
-        }
+        listExpensePage.add(listPage);
     }
 
 

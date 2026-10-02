@@ -31,7 +31,7 @@
             var state = response.getState();
 
             if(state == "SUCCESS"){
-                
+
                 // 검색 결과 가져옴
                 var listContact = response.getReturnValue();
 
@@ -45,11 +45,8 @@
                     component.set("v.TotalCount", 0);
                     component.set("v.ShowResult", false);
 
-                    this.showToast(
-                        "error",
-                        "검색된 내역이 없습니다."
-                    );
-                    
+                    this.showToast("error", "검색된 내역이 없습니다.");
+
                     return;
                 }
 
@@ -60,10 +57,7 @@
 
             } else if(state == "ERROR"){
                 // 검색 실패 Toast
-                this.showToast(
-                    "error",
-                    "Contact 조회에 실패했습니다."
-                );
+                this.showToast("error", "Contact 조회에 실패했습니다.");
             }
         });
 

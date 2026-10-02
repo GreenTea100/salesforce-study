@@ -1,3 +1,3 @@
-trigger ProjectMember on ProjectMember__c (before insert) {
+trigger ProjectMember on ProjectMember__c (before insert, before update) {
     new ProjectMember_tr().run();
 }

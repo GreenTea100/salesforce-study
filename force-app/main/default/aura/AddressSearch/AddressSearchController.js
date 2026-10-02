@@ -1,6 +1,6 @@
 ({
     fnClose: function (component, event, helper) {
-        // 부모와 연결된  모달 노출 값 false 
+        // 모달 노출 false
         component.set("v.showModal", false);
     },
 
@@ -12,42 +12,35 @@
             helper.searchAddress(component);
         }
     },
-    
+
     fnSelectAddress: function (component, event, helper) {
-        
+
         // 선택한 주소 순번
         var index = event.getSource().get("v.value");
-        
+
         // 선택한 주소
         var listAddress = component.get("v.ListAddress");
         var selectedAddress = listAddress[index];
-        
+
         // 선택한 주소값 저장
         component.set("v.SelectedZipNo", selectedAddress.zipNo);
         component.set("v.SelectedRoadAddr", selectedAddress.roadAddr);
-        
+
         // 상세주소 화면 전환
         component.set("v.ShowAddressDetail", true);
     },
-    
+
     fnPrevious: function (component, event, helper) {
-        // 이전으로
+        // 이전
         component.set("v.ShowAddressDetail", false);
     },
-    
+
     fnSaveAddress: function (component, event, helper) {
         helper.saveAddress(component);
     },
-    
-    fnAddressSearchChange: function (component, event, helper) {
-        // 모달이 닫히면 주소 다시 조회
-        if (!component.get("v.ShowAddressSearch")) {
-            helper.getContactAddress(component);
-        }
-    },
-    
+
     fnPreviousPage: function (component, event, helper) {
-        // 이전 페이지로 이동
+        // 이전 페이지
         var currentPage = component.get("v.CurrentPage");
 
         if (currentPage > 1) {
@@ -56,7 +49,7 @@
     },
 
     fnNextPage: function (component, event, helper) {
-        // 다음 페이지로 이동
+        // 다음 페이지
         var currentPage = component.get("v.CurrentPage");
         var totalPages = component.get("v.TotalPages");
 
@@ -64,6 +57,6 @@
             helper.searchAddress(component, currentPage + 1);
         }
     }
-    
-    
+
+
 })

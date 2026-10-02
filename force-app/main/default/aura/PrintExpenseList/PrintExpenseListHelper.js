@@ -1,5 +1,5 @@
 ({
-    helperMethod : function() {
+    saveAction : function() {
 
     }
 })

@@ -1,5 +1,5 @@
 public with sharing class ChangeProjectMemberController {
-    
+
     @AuraEnabled
     public static List<ProjectMember__c> getProjectMembers(String recordId){
 
@@ -47,10 +47,7 @@ public with sharing class ChangeProjectMemberController {
 
 
     @AuraEnabled
-    public static void changeProjectMember(
-        String projectMemberId,
-        String employeeId
-    ){
+    public static void changeProjectMember(String projectMemberId, String employeeId){
         // 선택한 프로젝트 멤버의 직원 정보 변경
         ProjectMember__c objProjectMember = new ProjectMember__c(
             Id = projectMemberId,

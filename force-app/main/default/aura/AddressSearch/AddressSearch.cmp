@@ -11,9 +11,6 @@
     <!-- 검색된 주소 목록-->
     <aura:attribute name="ListAddress" type="List" default="[]" />
 
-    <!-- 선택한 주소-->
-    <aura:attribute name="SelectedAddress" type="Object" default="{}" />
-
     <!-- 상세 주소 화면 노출 여부 -->
     <aura:attribute name="ShowAddressDetail" type="Boolean" default="false" />
 

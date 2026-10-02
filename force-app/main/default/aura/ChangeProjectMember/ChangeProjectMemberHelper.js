@@ -36,10 +36,7 @@
 
             } else if (state == "ERROR"){
                 // 조회 실패 토스트
-                this.showToast(
-                    "error",
-                    "프로젝트 멤버 목록을 조회하지 못했습니다."
-                );
+                this.showToast("error", "프로젝트 멤버 목록을 조회하지 못했습니다.");
             }
         });
 
@@ -70,13 +67,10 @@
                 });
 
                 component.set("v.ListEmployee", listEmployeeOption);
-                
+
             } else if(state == "ERROR"){
                 // 조회 실패 토스트
-                this.showToast(
-                    "error",
-                    "직원 목록을 조회하지 못했습니다."
-                );
+                this.showToast("error", "직원 목록을 조회하지 못했습니다.");
             }
         });
 
@@ -114,24 +108,17 @@
 
             if(state == "SUCCESS"){
                 // 교체 성공 토스트
-                this.showToast(
-                    "success",
-                    "프로젝트 멤버가 교체되었습니다."
-                );
+                this.showToast("success", "프로젝트 멤버가 교체되었습니다.");
 
                 // 창 닫기
                 $A.get("e.force:closeQuickAction").fire();
 
-                // 화면 새로고침
+                // 새로고침
                 $A.get("e.force:refreshView").fire();
 
             } else if(state == "ERROR"){
-                
                 // 교체 실패 토스트
-                this.showToast(
-                    "error",
-                    "프로젝트 멤버 교체에 실패했습니다."
-                )
+                this.showToast("error", "프로젝트 멤버 교체에 실패했습니다.");
             }
         });
 
